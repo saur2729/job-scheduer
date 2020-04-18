@@ -4,13 +4,6 @@ client = MongoClient('localhost', 27017)  # Connect to mongodb
 
 dbs = client.list_database_names()
 print(dbs)
-# db = client["job-scheduler"]
-# print(db, "\n\n")
-
-# client.drop_database("job-scheduler")
-
-# dbs = client.list_database_names()
-# print(dbs)
 
 for db in dbs:
   if db == "job-scheduler":
