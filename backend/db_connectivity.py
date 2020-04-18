@@ -1,7 +1,21 @@
-import pymongo
+from pymongo import MongoClient
 
-myclient = pymongo.MongoClient("mongodb://localhost:27017/")
-mydb = myclient["mydatabase"]
+client = MongoClient('localhost', 27017)  # Connect to mongodb
 
-print(mydb)
+dbs = client.list_database_names()
+print(dbs)
+# db = client["job-scheduler"]
+# print(db, "\n\n")
+
+# client.drop_database("job-scheduler")
+
+# dbs = client.list_database_names()
+# print(dbs)
+
+for db in dbs:
+  if db == "job-scheduler":
+    print(db, " => ", client[db].list_collection_names(), "\n")
+    my_col = client[db].list_collection_names()[0]
+    x = client[db][my_col].find_one()
+    print(x["_id"])
 

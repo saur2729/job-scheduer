@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"job-scheduler.run_history"}],"uuid":"249fc979da9343a19252c9414081b752"}
