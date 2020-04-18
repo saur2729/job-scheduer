@@ -8,10 +8,16 @@ CORS(app)
 
 client = MongoClient('localhost', 27017)  # Connect to mongodb
 
+
 @app.route("/")
 def home_page():
-  my_str = "This is my first list of all DBs Ashu - \n"
+  return "Welcome to Home page"
+
+@app.route("/db")
+def db_page():
+  db_list = []
   dbs = client.list_database_names()
   for db in dbs:
-    my_str += db + "\n"
-  return my_str
+    db_list.append(db)
+  print(db_list)
+  return {"strr" : db_list}
