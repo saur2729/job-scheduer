@@ -15,9 +15,11 @@ def home_page():
 
 @app.route("/db")
 def db_page():
-  db_list = []
-  dbs = client.list_database_names()
-  for db in dbs:
-    db_list.append(db)
-  print(db_list)
-  return {"strr" : db_list}
+  coll_list = []
+  db = client["job-scheduler"]
+  collections = db.list_collection_names()
+  for coll in collections:
+    coll_list.append(coll)
+  print(coll_list)
+  return {"strr" : coll_list}
+

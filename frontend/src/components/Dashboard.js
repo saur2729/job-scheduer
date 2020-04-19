@@ -17,6 +17,7 @@ const Dashboard = () => {
         Object.keys(dbName).map(key => {
           const dbz = dbName[key]
           const items = []
+          console.log(dbz)
           let len = dbz.length;
           for(let i=0; i<len; i++){
             items.push(<li key={i}>{dbz[i]}</li>)

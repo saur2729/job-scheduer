@@ -1,18 +1,19 @@
-import React, {useEffect} from 'react';
+import React from 'react';
+import {BrowserRouter} from "react-router-dom";
+import 'typeface-roboto';
 import './App.css';
+
 import Dashboard from './components/Dashboard'
 
-function App() {
-//   useEffect(() => {
-//     fetch("/db").then(res => {
-//       res.json().then(data => console.log(data))
-//     })
-      
-//   }, []);
+import Home from './components/Home'
 
+
+function App() {
   return (
     <div className="App">
-      <Dashboard />
+      <BrowserRouter>
+        <Home />
+      </BrowserRouter>
     </div>
   );
 }
