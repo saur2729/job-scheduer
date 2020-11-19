@@ -3,6 +3,15 @@ import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
+
+import ListSubheader from '@material-ui/core/ListSubheader';
+import Collapse from '@material-ui/core/Collapse';
+import DraftsIcon from '@material-ui/icons/Drafts';
+import SendIcon from '@material-ui/icons/Send';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import StarBorder from '@material-ui/icons/StarBorder';
+
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
@@ -25,7 +34,8 @@ import Menu from '@material-ui/core/Menu';
 //pages
 import Dashboard from './Dashboard'
 import About from './About'
-
+import Jobs from './Jobs'
+import AddJob from './AddJob'
 
 const drawerWidth = 240;
 
@@ -60,6 +70,14 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
   },
+  droot: {
+    width: '100%',
+    maxWidth: 360,
+    backgroundColor: theme.palette.background.paper,
+  },
+  nested: {
+    paddingLeft: theme.spacing(4),
+  },
 }));
 
 function HideOnScroll(props) {
@@ -87,6 +105,7 @@ function Home(props) {
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+
   const handleChange = (event) => {
     setAuth(event.target.checked);
   };
@@ -99,21 +118,62 @@ function Home(props) {
     setAnchorEl(null);
   };
 
+
+  const [dopen, setDOpen] = React.useState(false);
+
+  const handleClick = () => {
+    setDOpen(!dopen);
+  };
+
   const drawer = (
     <div>
       <div className={classes.toolbar} />
       <Divider />
-      <List>
-        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
+      <List
+      component="nav"
+      aria-labelledby="nested-list-subheader"
+      className={classes.droot}
+    >
+      <Link to="/about">
+        <ListItem button >
+          <ListItemIcon>
+            <SendIcon />
+          </ListItemIcon>
+          <ListItemText primary="Job Status"  />
+        </ListItem>
+      </Link>
+
+      <Link to="/addjob">
+        <ListItem button>
+          <ListItemIcon>
+            <SendIcon />
+          </ListItemIcon>
+          <ListItemText primary="Add jobs" />
+        </ListItem>
+      </Link>
+
+      <ListItem button onClick={handleClick}>
+        <ListItemIcon>
+          <SendIcon />
+        </ListItemIcon>
+        <ListItemText primary="Job Status" />
+        {dopen ? <ExpandLess /> : <ExpandMore />}
+      </ListItem>
+      <Collapse in={dopen} timeout="auto" unmountOnExit>
+        <List component="div" disablePadding>
+          <ListItem button className={classes.nested}>
+            <ListItemIcon>
+              <StarBorder />
+            </ListItemIcon>
+            <ListItemText primary="Demo" />
           </ListItem>
-        ))}
-      </List>
+        </List>
+      </Collapse>
+    </List>
+
       <Divider />
       <List>
-        {['All mail', 'Trash', 'Spam'].map((text, index) => (
+        {['History', 'Profile', 'Signout'].map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
             <ListItemText primary={text} />
@@ -218,6 +278,8 @@ function Home(props) {
         <Switch>
           <Route path="/" component={Dashboard} exact />
           <Route path="/about" component={About} />
+          <Route path="/jobs" component={Jobs} />
+          <Route path="/addjob" component={AddJob} />
           <Route
             path="/contact"
             render={() => <h1>Contact Us</h1>} />

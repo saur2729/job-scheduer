@@ -21,5 +21,21 @@ def db_page():
   for coll in collections:
     coll_list.append(coll)
   print(coll_list)
-  return {"strr" : coll_list}
+  return {"DBS" : coll_list}
+
+@app.route("/jobs")
+def get_jobs(instance_id="local", job_name="demo"):
+
+  return {"strr" : instance_id}
+
+@app.route("/add-job")
+def add_job(obj):
+
+  return {"strr" : "instance_id"}
+
+
+@app.route("/getAllInstance")
+def get_all_instance():
+
+  return {"strr" : "instance_id"}
 
